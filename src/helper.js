@@ -4,19 +4,13 @@
   let touchendY = 0;
   let activePage = null;
   let previousPage = null;
-  let lastAction = null;
-
-  const ACTIONS = {
-    previousPage: 'previous',
-    nextPage: 'next',
-  };
 
   const pages = document.querySelectorAll('.fullheight-scroller__content');
   const container = document.querySelector('.fullheight-scroller__container');
 
   activePage = pages[0];
 
-  function debounce(func, timeout = 150) {
+  function debounce(func, timeout = 25) {
     let timer;
     return (...args) => {
       clearTimeout(timer);
@@ -29,52 +23,53 @@
   const processChange = debounce((e) => printBoundingClient(e));
 
   const printBoundingClient = (e) => {
-    const boundingClientReact = activePage.getBoundingClientRect();
-    switch (e.type) {
-      case 'wheel':
-        if (boundingClientReact.top === 0 && e.deltaY < 0) {
-          getPreviousPage();
-          return;
-        }
+    if (activePage.scrollTop === 0 && e.deltaY < 0) {
+      getPreviousPage();
+      return;
+    }
 
-        if (container.offsetHeight + container.scrollTop >= container.scrollHeight) {
-          getNextPage();
-          return;
-        }
-
-        break;
+    if (activePage.offsetHeight + activePage.scrollTop >= activePage.scrollHeight) {
+      getNextPage();
+      return;
     }
   };
 
   const getNextPage = () => {
+    container.removeEventListener('wheel', processChange);
     if (currentPage < pages.length - 1) {
       console.log('get next page');
 
       pages[currentPage].classList.remove('fullheight-scroller__content--active');
       pages[++currentPage].classList.add('fullheight-scroller__content--active');
       previousPage = activePage;
-      previousPage.classList.toggle('slide-bottom');
       activePage = pages[currentPage];
+      if (!previousPage.classList.contains('slide-top')) previousPage.classList.add('slide-top');
+      if (previousPage.classList.contains('slide-bottom')) previousPage.classList.remove('slide-bottom');
       activePage.scroll(0, 0);
-      //activePage.scrollTop = 0;
-    }
+    } else container.addEventListener('wheel', processChange);
   };
 
   const getPreviousPage = () => {
+    container.removeEventListener('wheel', processChange);
     if (currentPage > 0) {
       console.log('get previous page');
 
       pages[currentPage].classList.remove('fullheight-scroller__content--active');
       pages[--currentPage].classList.add('fullheight-scroller__content--active');
       previousPage = activePage;
-      previousPage.classList.toggle('slide-bottom');
       activePage = pages[currentPage];
+
+      if (!previousPage.classList.contains('slide-bottom')) previousPage.classList.add('slide-bottom');
       activePage.scroll(0, 0);
-    }
+    } else container.addEventListener('wheel', processChange);
   };
 
-  container.addEventListener('wheel', (e) => {
-    processChange(e);
+  container.addEventListener('wheel', processChange);
+
+  window.document.addEventListener('transitionend', (event) => {
+    if (event.target && event.target.classList.contains('fullheight-scroller__content')) {
+      container.addEventListener('wheel', processChange);
+    }
   });
 
   // container.addEventListener('touchstart', (e) => {
