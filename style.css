@@ -1,0 +1,58 @@
+body {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+h1 {
+    margin: 0px;
+}
+
+.fullheight-scroller__container::-webkit-scrollbar {
+    display: none;
+}
+
+.fullheight-scroller__container {
+    height: 100vh;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-y: scroll;
+    
+}
+
+.fullheight-scroller__navigation {
+
+}
+
+.fullheight-scroller__content {
+    display: none;
+
+}
+
+.fullheight-scroller__content--active {
+    display: block;
+    min-height: 100vh;
+}
+
+.red {
+    background: rgb(0, 162, 255);
+}
+
+.blue {
+    background: rgb(0, 102, 255);
+}
+
+.yellow {
+    background: rgb(136, 127, 0);
+}
+
+.purple {
+    background: rgb(75, 0, 75);
+}
+
+.fullheight-scroller__navigation {
+    position: fixed;
+}
+
