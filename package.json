@@ -1,0 +1,25 @@
+{
+  "name": "vertical-scroller",
+  "version": "1.0.0",
+  "description": "",
+  "main": "helper.js",
+  "source": "src/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel",
+    "build": "parcel build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mesihtasci/vertical-scroller.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mesihtasci/vertical-scroller/issues"
+  },
+  "homepage": "https://github.com/mesihtasci/vertical-scroller#readme",
+  "devDependencies": {
+    "parcel": "^2.6.2"
+  }
+}

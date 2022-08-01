@@ -3,6 +3,7 @@
   let touchstartY = 0;
   let touchendY = 0;
   let activePage = null;
+  let previousPage = null;
   let lastAction = null;
 
   const ACTIONS = {
@@ -51,7 +52,10 @@
 
       pages[currentPage].classList.remove('fullheight-scroller__content--active');
       pages[++currentPage].classList.add('fullheight-scroller__content--active');
+      previousPage = activePage;
+      previousPage.classList.toggle('slide-bottom');
       activePage = pages[currentPage];
+      activePage.scroll(0, 0);
       //activePage.scrollTop = 0;
     }
   };
@@ -62,8 +66,10 @@
 
       pages[currentPage].classList.remove('fullheight-scroller__content--active');
       pages[--currentPage].classList.add('fullheight-scroller__content--active');
+      previousPage = activePage;
+      previousPage.classList.toggle('slide-bottom');
       activePage = pages[currentPage];
-      //activePage.scrollTop = 0;
+      activePage.scroll(0, 0);
     }
   };
 
