@@ -7,6 +7,7 @@
 
   const pages = document.querySelectorAll('.fullheight-scroller__content');
   const container = document.querySelector('.fullheight-scroller__container');
+  const bullets = document.querySelectorAll('.fullheight-scroller__bullet');
 
   activePage = pages[0];
 
@@ -34,6 +35,13 @@
     }
   };
 
+  const setBullet = (activeIndex) => {
+    bullets.forEach((bullet, index) => {
+      if (index !== activeIndex) bullet.classList.remove('fullheight-scroller__bullet--active');
+      else bullet.classList.add('fullheight-scroller__bullet--active');
+    });
+  };
+
   const getNextPage = () => {
     container.removeEventListener('wheel', processChange);
     if (currentPage < pages.length - 1) {
@@ -46,6 +54,7 @@
       if (!previousPage.classList.contains('slide-top')) previousPage.classList.add('slide-top');
       if (previousPage.classList.contains('slide-bottom')) previousPage.classList.remove('slide-bottom');
       activePage.scroll(0, 0);
+      setBullet(currentPage);
     } else container.addEventListener('wheel', processChange);
   };
 
@@ -61,6 +70,7 @@
 
       if (!previousPage.classList.contains('slide-bottom')) previousPage.classList.add('slide-bottom');
       activePage.scroll(0, 0);
+      setBullet(currentPage);
     } else container.addEventListener('wheel', processChange);
   };
 
@@ -72,15 +82,15 @@
     }
   });
 
-  // container.addEventListener('touchstart', (e) => {
-  //   touchstartY = e.changedTouches[0].screenY;
-  // });
+  container.addEventListener('touchstart', (e) => {
+    touchstartY = e.changedTouches[0].screenY;
+  });
 
-  // container.addEventListener('touchend', (e) => {
-  //   touchendY = e.changedTouches[0].screenY;
-  //   if (container.offsetHeight >= container.scrollHeight) {
-  //     if (touchendY < touchstartY) getNextPage();
-  //     if (touchendY > touchstartY) getPreviousPage();
-  //   } else getPreviousPage();
-  // });
+  container.addEventListener('touchend', (e) => {
+    touchendY = e.changedTouches[0].screenY;
+    if (container.offsetHeight >= container.scrollHeight) {
+      if (touchendY < touchstartY) getNextPage();
+      if (touchendY > touchstartY) getPreviousPage();
+    } else getPreviousPage();
+  });
 })();
