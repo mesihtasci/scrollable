@@ -10,7 +10,7 @@ h1 {
     margin: 0px;
 }
 
-.fullheight-scroller__content--wrapper {
+.mt-vs__content--wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -18,7 +18,7 @@ h1 {
     font-size: 64px;
 }
 
-.fullheight-scroller__container {
+.mt-vs__container {
     height: 100vh;
 }
 
@@ -30,7 +30,7 @@ h1 {
     transform: translate(0, 100%);
 }
 
-.fullheight-scroller__content {
+.mt-vs__content {
     padding: 24px;
     z-index: 0;
     transition: all 1s;
@@ -41,7 +41,7 @@ h1 {
     box-sizing: border-box;
 }
 
-.fullheight-scroller__content--active {
+.mt-vs__content--active {
     z-index: 0;
     display: block;
     min-height: 100vh;
@@ -64,7 +64,7 @@ h1 {
     background: rgb(150, 59, 150);
 }
 
-.fullheight-scroller__navigation ul {
+.mt-vs__navigation ul {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -73,7 +73,7 @@ h1 {
     padding: 0px;
 }
 
-.fullheight-scroller__navigation {
+.mt-vs__navigation {
     right: 16px;
     top: 50%;
     transform: translateY(-50%);
@@ -82,17 +82,24 @@ h1 {
 
 }
 
-.fullheight-scroller__bullet {
+.mt-vs__bullet {
     display: block;
     border-radius: 50%;
-    width: 4px;
-    height: 4px;
+    width: 8px;
+    height: 8px;
     background: white;
     margin-top: 8px;
     margin-bottom: 8px;
+    cursor: pointer;
 }
 
-.fullheight-scroller__bullet--active {
+.mt-vs__bullet:hover {
+    -webkit-transform: scale(1.5);
+    transform: scale(1.5);
+    background-color: white;
+}
+
+.mt-vs__bullet--active {
     width: 16px;
     height: 16px;
 

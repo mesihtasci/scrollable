@@ -5,9 +5,9 @@
   let activePage = null;
   let previousPage = null;
 
-  const pages = document.querySelectorAll('.fullheight-scroller__content');
-  const container = document.querySelector('.fullheight-scroller__container');
-  const bullets = document.querySelectorAll('.fullheight-scroller__bullet');
+  const pages = document.querySelectorAll('.mt-vs__content');
+  const container = document.querySelector('.mt-vs__container');
+  const bullets = document.querySelectorAll('.mt-vs__bullet');
 
   activePage = pages[0];
 
@@ -37,8 +37,8 @@
 
   const setBullet = (activeIndex) => {
     bullets.forEach((bullet, index) => {
-      if (index !== activeIndex) bullet.classList.remove('fullheight-scroller__bullet--active');
-      else bullet.classList.add('fullheight-scroller__bullet--active');
+      if (index !== activeIndex) bullet.classList.remove('mt-vs__bullet--active');
+      else bullet.classList.add('mt-vs__bullet--active');
     });
   };
 
@@ -47,8 +47,8 @@
     if (currentPage < pages.length - 1) {
       console.log('get next page');
 
-      pages[currentPage].classList.remove('fullheight-scroller__content--active');
-      pages[++currentPage].classList.add('fullheight-scroller__content--active');
+      pages[currentPage].classList.remove('mt-vs__content--active');
+      pages[++currentPage].classList.add('mt-vs__content--active');
       previousPage = activePage;
       activePage = pages[currentPage];
       if (!previousPage.classList.contains('slide-top')) previousPage.classList.add('slide-top');
@@ -63,8 +63,8 @@
     if (currentPage > 0) {
       console.log('get previous page');
 
-      pages[currentPage].classList.remove('fullheight-scroller__content--active');
-      pages[--currentPage].classList.add('fullheight-scroller__content--active');
+      pages[currentPage].classList.remove('mt-vs__content--active');
+      pages[--currentPage].classList.add('mt-vs__content--active');
       previousPage = activePage;
       activePage = pages[currentPage];
 
@@ -77,7 +77,7 @@
   container.addEventListener('wheel', processChange);
 
   window.document.addEventListener('transitionend', (event) => {
-    if (event.target && event.target.classList.contains('fullheight-scroller__content')) {
+    if (event.target && event.target.classList.contains('mt-vs__content')) {
       container.addEventListener('wheel', processChange);
     }
   });
