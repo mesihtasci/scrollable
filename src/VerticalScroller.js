@@ -47,6 +47,10 @@ export default class VerticalScroller {
     for (let i = 0; i < this.pages.length; i++) {
       const bullet = htmlToElement(this.templates.bullet);
 
+      bullet.addEventListener('click', () => {
+        this.scrollTo(i);
+      });
+
       if (i === 0) bullet.classList.add('mt-vs__bullet--active');
 
       this.bullets.push(this.container.querySelector('.mt-vs__navigation ul').insertAdjacentElement('beforeend', bullet));
@@ -79,6 +83,29 @@ export default class VerticalScroller {
       this.activePage.scroll(0, 0);
       this.setActiveBullet(this.currentPage);
     } else this.container.addEventListener('wheel', this.switchPageDebounced);
+  }
+
+  scrollTo(targetPage) {
+    if (this.currentPage === targetPage) return;
+
+    const difference = Math.abs(targetPage - this.currentPage);
+    const addend = targetPage - this.currentPage > 0 ? 1 : -1;
+    let transitionSpeed = 1 / difference;
+
+    if(difference >= 3)
+      transitionSpeed = 0.4;
+    else if(difference >= 2)
+    transitionSpeed = 0.5;
+    else if(difference >= 1)
+      transitionSpeed = 1;
+
+    this.container.style.setProperty('--transition-speed', transitionSpeed + 's');
+
+    for (let i = 0; i < difference; i++) {
+      setTimeout(() => {
+        this.setPage(addend);
+      }, i * ((transitionSpeed * 1000 ) + 50));
+    }
   }
 
   switchPage = (event) => {
