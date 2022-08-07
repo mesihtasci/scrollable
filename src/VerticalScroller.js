@@ -53,7 +53,7 @@ export default class VerticalScroller {
 
       if (i === 0) bullet.classList.add('mt-vs__bullet--active');
 
-      this.bullets.push(this.container.querySelector('.mt-vs__navigation ul').insertAdjacentElement('beforeend', bullet));
+      this.bullets.push(this.container.querySelector('.mt-vs__side-navigation ul').insertAdjacentElement('beforeend', bullet));
     }
   }
 
@@ -90,21 +90,19 @@ export default class VerticalScroller {
 
     const difference = Math.abs(targetPage - this.currentPage);
     const addend = targetPage - this.currentPage > 0 ? 1 : -1;
-    let transitionSpeed = 1 / difference;
+    let transitionSpeed = 0.5 / difference;
 
-    if(difference >= 3)
-      transitionSpeed = 0.4;
-    else if(difference >= 2)
-    transitionSpeed = 0.5;
-    else if(difference >= 1)
-      transitionSpeed = 1;
+    if (difference === 1) transitionSpeed = 0.5;
+    else transitionSpeed = 0.075;
 
     this.container.style.setProperty('--transition-speed', transitionSpeed + 's');
 
     for (let i = 0; i < difference; i++) {
       setTimeout(() => {
+        if (i === difference - 1) this.container.style.setProperty('--transition-speed', '0.5s');
+
         this.setPage(addend);
-      }, i * ((transitionSpeed * 1000 ) + 50));
+      }, i * (transitionSpeed * 1000 + 50));
     }
   }
 

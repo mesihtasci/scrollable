@@ -5,7 +5,7 @@ export const htmlToElement = (htmlText) => {
   return element.content.firstChild;
 };
 
-export function debounce(func, timeout = 25) {
+export function debounce(func, timeout = 10) {
   let timer;
   return (...args) => {
     clearTimeout(timer);
