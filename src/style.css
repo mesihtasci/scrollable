@@ -4,6 +4,18 @@ body {
     overflow: hidden;
     box-sizing: border-box;
     font-family: Helvetica, sans-serif;
+    overflow: hidden;
+    height: 100%;
+    /* position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0; */
+}
+
+html {
+        overflow: hidden;
+            height: 100%;
 }
 
 h1 {
@@ -114,6 +126,7 @@ h1 {
     color: white;
     font-size: 24px;
     align-items: center;
+    align-items: baseline;
 }
 
 .mt-vs__navigation-entry {
