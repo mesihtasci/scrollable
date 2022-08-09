@@ -25,26 +25,37 @@ export default class VerticalScroller {
     this.container = document.querySelector('.mt-vs__container');
     this.addNavigations();
 
-    this.container.addEventListener('wheel', this.switchPageDebounced);
-
-    window.document.addEventListener('transitionend', (event) => {
-      if (event.target && event.target.classList.contains('mt-vs__content')) {
-        this.container.addEventListener('wheel', this.switchPageDebounced);
-        this.transition = false;
+    this.container.addEventListener('wheel', function (event) {
+      console.log(event.target);
+      if (event.deltaY < 0) {
+        this.style.transform = 'translate3d(0, 0, 0)';
+        console.log('scrolling up');
+      } else if (event.deltaY > 0) {
+        this.style.transform = 'translate3d(0, -100vh, 0)';
+        console.log('scrolling down');
       }
     });
 
-    this.container.addEventListener('touchstart', (event) => {
-      this.touchstartY = event.changedTouches[0].screenY;
-    });
+    // this.container.addEventListener('wheel', this.switchPageDebounced);
 
-    this.container.addEventListener('touchend', (event) => {
-      this.touchendY = event.changedTouches[0].screenY;
-      if (this.container.offsetHeight >= this.container.scrollHeight) {
-        if (this.touchendY < this.touchstartY) this.setPage(+1);
-        if (this.touchendY > this.touchstartY) this.setPage(-1);
-      } else this.setPage(-1);
-    });
+    // window.document.addEventListener('transitionend', (event) => {
+    //   if (event.target && event.target.classList.contains('mt-vs__content')) {
+    //     this.container.addEventListener('wheel', this.switchPageDebounced);
+    //     this.transition = false;
+    //   }
+    // });
+
+    // this.container.addEventListener('touchstart', (event) => {
+    //   this.touchstartY = event.changedTouches[0].screenY;
+    // });
+
+    // this.container.addEventListener('touchend', (event) => {
+    //   this.touchendY = event.changedTouches[0].screenY;
+    //   if (this.container.offsetHeight >= this.container.scrollHeight) {
+    //     if (this.touchendY < this.touchstartY) this.setPage(+1);
+    //     if (this.touchendY > this.touchstartY) this.setPage(-1);
+    //   } else this.setPage(-1);
+    // });
   }
 
   addNavigations() {
@@ -67,8 +78,8 @@ export default class VerticalScroller {
         navigationEntry.classList.add('mt-vs__navigation-entry--active');
       }
 
-      this.bullets.push(this.container.querySelector('.mt-vs__side-navigation ul').insertAdjacentElement('beforeend', bullet));
-      this.navigationEntries.push(this.container.querySelector('.mt-vs__top-navigation ul').insertAdjacentElement('beforeend', navigationEntry));
+      this.bullets.push(document.querySelector('.mt-vs__side-navigation ul').insertAdjacentElement('beforeend', bullet));
+      this.navigationEntries.push(document.querySelector('.mt-vs__top-navigation ul').insertAdjacentElement('beforeend', navigationEntry));
     }
   }
 

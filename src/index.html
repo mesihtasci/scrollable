@@ -8,9 +8,6 @@
   </head>
   <body>
     <main class="mt-vs__container">
-      <nav class="mt-vs__top-navigation">
-        <ul></ul>
-      </nav>
       <section aria-label="First Page" class="mt-vs__content slide-bottom mt-vs__content--active red">
         <div class="mt-vs__content--wrapper">
           <h1>First Page</h1>
@@ -31,10 +28,15 @@
           <h1>Fourth Page</h1>
         </div>
       </section>
-      <aside class="mt-vs__side-navigation">
-        <ul></ul>
-      </aside>
     </main>
+
+    <aside class="mt-vs__side-navigation">
+      <ul></ul>
+    </aside>
+    <nav class="mt-vs__top-navigation">
+      <ul></ul>
+    </nav>
+
     <script type="module">
       import VerticalScroller from './VerticalScroller.js';
       window.VerticalScroller = new VerticalScroller();
