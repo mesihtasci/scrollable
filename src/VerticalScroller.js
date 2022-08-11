@@ -18,6 +18,7 @@ export default class VerticalScroller {
     this.pages = [...document.querySelectorAll('.mt-vs__content')];
     this.container = document.querySelector('.mt-vs__container');
     this.currentPage = this.pages.findIndex((page) => page.getAttribute('data-section-id') === sectionName);
+    this.activePage = null;
     if (this.currentPage < 0) this.currentPage = 0;
 
     this.addNavigations();
@@ -25,10 +26,18 @@ export default class VerticalScroller {
     this.container.addEventListener('wheel', (event) => {
       if (this.transitionActive) return;
 
-      if (event.deltaY < 0 && this.currentPage > 0) this.currentPage--;
-      else if (event.deltaY > 0 && this.currentPage < this.pages.length - 1) this.currentPage++;
+      let switchPage = false;
 
-      this.setActivePage(this.currentPage);
+      if (this.activePage.scrollHeight === window.innerHeight || (this.activePage.scrollHeight > window.innerHeight && this.activePage.scrollHeight - this.activePage.scrollTop === window.innerHeight)) {
+        switchPage = true;
+      }
+
+      if (switchPage) {
+        if (event.deltaY < 0 && this.currentPage > 0) this.currentPage--;
+        else if (event.deltaY > 0 && this.currentPage < this.pages.length - 1) this.currentPage++;
+
+        this.setActivePage(this.currentPage);
+      }
     });
 
     window.document.addEventListener('transitionstart', () => {
@@ -82,7 +91,7 @@ export default class VerticalScroller {
   setActivePage(index) {
     const yTranslation = index * 100;
     this.currentPage = index;
-
+    this.activePage = this.pages[index];
     this.container.style.transform = `translate3d(0, -${yTranslation}vh, 0)`;
     this.setActiveNavigationEntry(index);
     location.hash = this.pages[index].getAttribute('data-section-id');
