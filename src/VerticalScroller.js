@@ -28,7 +28,10 @@ export default class VerticalScroller {
 
       let switchPage = false;
 
-      if (this.activePage.scrollHeight === window.innerHeight || (this.activePage.scrollHeight > window.innerHeight && this.activePage.scrollHeight - this.activePage.scrollTop === window.innerHeight)) {
+      if (
+        this.activePage.scrollHeight === window.innerHeight ||
+        (this.activePage.scrollHeight > window.innerHeight && ((this.activePage.scrollHeight - this.activePage.scrollTop === window.innerHeight && event.deltaY > 0) || (this.activePage.scrollTop === 0 && event.deltaY < 0)))
+      ) {
         switchPage = true;
       }
 
