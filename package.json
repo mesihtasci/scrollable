@@ -2,12 +2,9 @@
   "name": "vertical-scroller",
   "version": "1.0.0",
   "description": "",
-  "main": "helper.js",
-  "source": "src/index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel",
-    "build": "parcel build"
+    "watch": "nodemon",
+    "dev": "live-server --open=./examples/index.html"
   },
   "repository": {
     "type": "git",
@@ -20,6 +17,8 @@
   },
   "homepage": "https://github.com/mesihtasci/vertical-scroller#readme",
   "devDependencies": {
-    "parcel": "^2.6.2"
+    "esbuild": "^0.15.2",
+    "nodemon": "^2.0.19",
+    "typescript": "^4.7.4"
   }
 }

@@ -1,0 +1,7 @@
+{
+  "watch": ["src"],
+  "ignore": ["src/**/*.test.ts"],
+  "ext": "ts,mjs,js,json,graphql",
+  "exec": "esbuild ./src/VerticalScroller.ts --bundle --loader:.ts=ts --outfile=./dist/VerticalScroller.js --format=esm",
+  "legacyWatch": true
+}
