@@ -1,4 +1,4 @@
-import { htmlToElement } from './utils/helper.js';
+import { htmlToElement, throttle, debounce } from './utils/helper.js';
 import { Direction } from './utils/enums.js';
 
 export default class VerticalScroller {
@@ -22,14 +22,16 @@ export default class VerticalScroller {
 
   init() {
     const sectionName = decodeURIComponent(location.hash.substring(1));
+    let nextIndex = 0;
     this.isTransitionActive = false;
     this.pages = [...document.querySelectorAll('.mt-vs__content')] as HTMLElement[];
     this.container = document.querySelector('.mt-vs__container');
-    this.currentPageIndex = this.pages?.findIndex((page: HTMLElement) => page.getAttribute('data-section-id') === sectionName);
+    this.currentPageIndex = -1;
+    nextIndex = this.pages?.findIndex((page: HTMLElement) => page.getAttribute('data-section-id') === sectionName);
     this.activePage = null;
     this.touchStartY = 0;
     this.touchEndY = 0;
-    if (this.currentPageIndex < 0) this.currentPageIndex = 0;
+    if (nextIndex < 0) nextIndex = 0;
 
     this.addNavigations();
 
@@ -47,21 +49,15 @@ export default class VerticalScroller {
       this.slideRequest(this.touchEndY > this.touchStartY ? Direction.Up : Direction.Down);
     })
 
-    this.container?.addEventListener('transitionstart', () => {
-      this.isTransitionActive = true;
-    });
-
     this.container?.addEventListener('transitionend', () => {
       this.isTransitionActive = false;
     });
 
 
-    if (this.currentPageIndex >= 0) this.setActivePage(this.currentPageIndex);
+    if (nextIndex >= 0) this.setActivePage(nextIndex);
   }
 
   slideRequest(direction: Direction) {
-    if (this.isTransitionActive) return;
-
     let switchPage = false;
     if (this.activePage) {
       if (
@@ -74,14 +70,16 @@ export default class VerticalScroller {
         switchPage = true;
       }
 
-      if (switchPage && typeof this.currentPageIndex !== "undefined" && !isNaN(this.currentPageIndex) && this.pages) {
-        if (direction === Direction.Up && this.currentPageIndex > 0) this.currentPageIndex--;
-        else if (direction === Direction.Down && this.currentPageIndex < this.pages.length - 1) this.currentPageIndex++;
+      let nextIndex = this.currentPageIndex || 0;
 
-        this.setActivePage(this.currentPageIndex);
+      if (switchPage && typeof this.currentPageIndex !== "undefined" && !isNaN(this.currentPageIndex) && this.pages) {
+        if (direction === Direction.Up && this.currentPageIndex > 0) nextIndex--;
+        else if (direction === Direction.Down && this.currentPageIndex < this.pages.length - 1) nextIndex++;
+
+        this.setActivePage(nextIndex);
+
       }
     }
-
   }
 
   addNavigations() {
@@ -143,7 +141,10 @@ export default class VerticalScroller {
   }
 
   setActivePage(index: number) {
-    if (this.pages && this.container) {
+    if (!this.isTransitionActive && this.pages && this.container && this.currentPageIndex !== index && (index < this.pages.length || index >= 0)) {
+      if (this.currentPageIndex !== -1 || index > 0)
+        this.isTransitionActive = true;
+
       const yTranslation = index * 100;
       this.currentPageIndex = index;
       this.activePage = this.pages[index] as HTMLElement;
