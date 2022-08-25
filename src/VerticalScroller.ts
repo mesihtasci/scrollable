@@ -1,9 +1,10 @@
-import { htmlToElement, throttle, debounce } from './utils/helper.js';
+import { htmlToElement } from './utils/helper.js';
 import { Direction } from './utils/enums.js';
 
 export default class VerticalScroller {
   touchStartY = 0;
   touchEndY = 0;
+  nextIndex = 0;
   pages: HTMLElement[] | null = null;
   currentPageIndex: number | undefined = 0;
   container: HTMLElement | null = null;
@@ -22,16 +23,15 @@ export default class VerticalScroller {
 
   init() {
     const sectionName = decodeURIComponent(location.hash.substring(1));
-    let nextIndex = 0;
     this.isTransitionActive = false;
     this.pages = [...document.querySelectorAll('.mt-vs__content')] as HTMLElement[];
     this.container = document.querySelector('.mt-vs__container');
     this.currentPageIndex = -1;
-    nextIndex = this.pages?.findIndex((page: HTMLElement) => page.getAttribute('data-section-id') === sectionName);
+    this.nextIndex = this.pages?.findIndex((page: HTMLElement) => page.getAttribute('data-section-id') === sectionName);
     this.activePage = null;
     this.touchStartY = 0;
     this.touchEndY = 0;
-    if (nextIndex < 0) nextIndex = 0;
+    if (this.nextIndex < 0) this.nextIndex = 0;
 
     this.addNavigations();
 
@@ -46,15 +46,20 @@ export default class VerticalScroller {
     this.container?.addEventListener('touchend', e => {
       this.touchEndY = e.changedTouches[0].screenY
 
+      if(Math.abs(this.touchStartY - this.touchEndY) < 15)
+      return;
+
       this.slideRequest(this.touchEndY > this.touchStartY ? Direction.Up : Direction.Down);
+
+      this.touchEndY = 0;
+      this.touchStartY = 0;
     })
 
     this.container?.addEventListener('transitionend', () => {
       this.isTransitionActive = false;
     });
 
-
-    if (nextIndex >= 0) this.setActivePage(nextIndex);
+    if (this.nextIndex >= 0) this.setActivePage(this.nextIndex);
   }
 
   slideRequest(direction: Direction) {
@@ -70,13 +75,13 @@ export default class VerticalScroller {
         switchPage = true;
       }
 
-      let nextIndex = this.currentPageIndex || 0;
+      this.nextIndex = this.currentPageIndex || 0;
 
       if (switchPage && typeof this.currentPageIndex !== "undefined" && !isNaN(this.currentPageIndex) && this.pages) {
-        if (direction === Direction.Up && this.currentPageIndex > 0) nextIndex--;
-        else if (direction === Direction.Down && this.currentPageIndex < this.pages.length - 1) nextIndex++;
+        if (direction === Direction.Up && this.currentPageIndex > 0) this.nextIndex--;
+        else if (direction === Direction.Down && this.currentPageIndex < this.pages.length - 1) this.nextIndex++;
 
-        this.setActivePage(nextIndex);
+        this.setActivePage(this.nextIndex);
 
       }
     }

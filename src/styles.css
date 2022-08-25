@@ -132,17 +132,6 @@ h1 {
     width: 9px;
 }
 
-.mt-vs__bullet:not(.mt-vs__bullet--active):hover {
-    -webkit-transform: scale(1.5);
-    transform: scale(1.5);
-    background-color: white;
-}
-
-.mt-vs__bullet-wrapper:hover .mt-vs__bullet-text {
-    opacity: 1;
-
-}
-
 .mt-vs__bullet--active {
     transform: scale(2);
 }
@@ -191,4 +180,16 @@ h1 {
     border-left: 0;
     border-right: 0;
     border-top: 0;
+}
+
+@media (hover: hover) {
+    .mt-vs__bullet:not(.mt-vs__bullet--active):hover {
+        -webkit-transform: scale(1.5);
+        transform: scale(1.5);
+        background-color: white;
+    }
+    
+    .mt-vs__bullet-wrapper:hover .mt-vs__bullet-text {
+        opacity: 1;
+    }
 }
