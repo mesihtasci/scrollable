@@ -1,11 +1,12 @@
 {
     "compilerOptions": {
         "target": "ES6",
-        "module": "NodeNext",
+        "moduleResolution": "node",
         "declaration": true,
         "outDir": "./dist",
         "strict": true,
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "allowSyntheticDefaultImports": true,
     },
     "include": [
         "src"
