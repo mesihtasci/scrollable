@@ -1,1 +1,0 @@
-# best-man-page
