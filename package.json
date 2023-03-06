@@ -1,6 +1,6 @@
 {
   "name": "@mesihtasci/scrollable",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A lightweight fullpage scroller. An alternative to fullpage.js",
   "module": "dist/index.js",
   "main": "dist/index.js",
@@ -12,10 +12,10 @@
     "build": "esbuild ./src/index.ts --bundle --loader:.ts=ts --outfile=./dist/index.js --format=esm --minify --sourcemap",
     "postbuild": "node dtsGenerator.js"
   },
-  "repository": "git+https://github.com/mesihtasci/vertical-scroller.git",
+  "repository": "git+https://github.com/mesihtasci/scrollable.git",
   "author": "Mesih Tasci (mesih.t@gmail.com)",
   "license": "MIT",
-  "homepage": "https://github.com/mesihtasci/vertical-scroller#readme",
+  "homepage": "https://github.com/mesihtasci/scrollable#readme",
   "devDependencies": {
     "esbuild": "^0.17.11",
     "nodemon": "^2.0.21",
