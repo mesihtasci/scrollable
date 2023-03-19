@@ -106,13 +106,13 @@ export default class Scrollable {
   slideRequest() {
     let switchPage = false;
     if (this.activePage) {
-      const activePageHeight = this.activePage.getBoundingClientRect().height;
+      const activePageHeight = Math.round(this.activePage.clientHeight);
       if (
-        this.activePage.scrollHeight === activePageHeight ||
-        (this.activePage.scrollHeight > activePageHeight &&
-          ((this.activePage.scrollHeight - this.activePage.scrollTop === activePageHeight &&
+        Math.round(this.activePage.scrollHeight) === activePageHeight ||
+        (Math.round(this.activePage.scrollHeight) > activePageHeight &&
+          ((Math.round(this.activePage.scrollHeight) - Math.round(this.activePage.scrollTop) === activePageHeight &&
             this.direction === Direction.Down) ||
-            (this.activePage?.scrollTop === 0 && this.direction === Direction.Up)))
+            (Math.round(this.activePage?.scrollTop) === 0 && this.direction === Direction.Up)))
       ) {
         switchPage = true;
       }
@@ -196,7 +196,7 @@ export default class Scrollable {
       let sum = 0;
 
       for (let i = index; i > 0; i--)
-        sum += this.pages[i].getBoundingClientRect().height;
+        sum += this.pages[i].clientHeight
 
       return sum;
     }
