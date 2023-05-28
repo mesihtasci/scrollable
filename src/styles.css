@@ -190,10 +190,10 @@ h1 {
 .mt-vs__navigation-entry--active {
     border-bottom: white;
     border-width: 2px;
-    border-style: solid;
     border-left: 0;
     border-right: 0;
     border-top: 0;
+    border-style: solid !important;
 }
 
 @media (hover: hover) {
