@@ -58,8 +58,11 @@ export default class Scrollable {
     this.container?.addEventListener('touchend', e => {
       this.touchEndY = e.changedTouches[0].screenY
 
-      if (Math.abs(this.touchStartY - this.touchEndY) < 15)
+      if (Math.abs(this.touchStartY - this.touchEndY) < 70) {
+        this.touchEndY = 0;
+        this.touchStartY = 0;
         return;
+      }
 
       this.direction = this.touchEndY > this.touchStartY ? Direction.Up : Direction.Down;
 
