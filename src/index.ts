@@ -109,14 +109,14 @@ export default class Scrollable {
   slideRequest() {
     let switchPage = false;
     if (this.activePage) {
-      const activePageHeight = Math.round(this.activePage.clientHeight);
-      const scrollHeight = Math.round(this.activePage.scrollHeight);
-      const scrollTop = Math.round(this.activePage.scrollTop)
+      const activePageHeight = this.activePage.clientHeight;
+      const scrollHeight = this.activePage.scrollHeight;
+      const scrollTop = this.activePage.scrollTop
 
       if (
         scrollHeight === activePageHeight ||
         (scrollHeight > activePageHeight &&
-          ((scrollHeight - scrollTop <= activePageHeight &&
+          ((Math.abs(scrollHeight - activePageHeight - scrollTop) < 1 &&
             this.direction === Direction.Down) ||
             (scrollTop <= 0 && this.direction === Direction.Up)))
       ) {
