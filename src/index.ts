@@ -110,12 +110,15 @@ export default class Scrollable {
     let switchPage = false;
     if (this.activePage) {
       const activePageHeight = Math.round(this.activePage.clientHeight);
+      const scrollHeight = Math.round(this.activePage.scrollHeight);
+      const scrollTop = Math.round(this.activePage.scrollTop)
+
       if (
-        Math.round(this.activePage.scrollHeight) === activePageHeight ||
-        (Math.round(this.activePage.scrollHeight) > activePageHeight &&
-          ((Math.round(this.activePage.scrollHeight) - Math.round(this.activePage.scrollTop) === activePageHeight &&
+        scrollHeight === activePageHeight ||
+        (scrollHeight > activePageHeight &&
+          ((scrollHeight - scrollTop <= activePageHeight &&
             this.direction === Direction.Down) ||
-            (Math.round(this.activePage?.scrollTop) === 0 && this.direction === Direction.Up)))
+            (scrollTop <= 0 && this.direction === Direction.Up)))
       ) {
         switchPage = true;
       }
