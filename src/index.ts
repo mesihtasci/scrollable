@@ -1,4 +1,4 @@
-import { htmlToElement } from './utils/helper.js';
+import { htmlToElement, throttle } from './utils/helper.js';
 import { Direction } from './utils/enums.js';
 import './styles.css'
 
@@ -46,16 +46,15 @@ export default class Scrollable {
 
     this.addNavigations();
 
-    this.container?.addEventListener('wheel', (event) => {
-      this.direction = event.deltaY > 0 ? Direction.Down : Direction.Up
-      this.slideRequest();
-    });
+    this.container?.addEventListener('wheel', throttle(this.fireThrottledWheelEvent.bind(this), 500));
 
     this.container?.addEventListener('touchstart', e => {
+      console.log("touchstart")
       this.touchStartY = e.changedTouches[0].screenY
     })
 
     this.container?.addEventListener('touchend', e => {
+      console.log("touchend")
       this.touchEndY = e.changedTouches[0].screenY
 
       if (Math.abs(this.touchStartY - this.touchEndY) < 70) {
@@ -97,6 +96,15 @@ export default class Scrollable {
 
     if (this.nextIndex >= 0) this.setActivePage(this.nextIndex);
   }
+
+  fireThrottledWheelEvent(event: WheelEvent) {
+    if(event) {
+      this.direction =  event.deltaY> 0 ? Direction.Down : Direction.Up
+      this.slideRequest();
+    }
+    
+  }
+
 
   addIndex() {
     if (this.pages) {
