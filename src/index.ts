@@ -46,18 +46,18 @@ export default class Scrollable {
 
     this.addNavigations();
 
-    this.container?.addEventListener('wheel', throttle(this.fireThrottledWheelEvent.bind(this), 500));
+    window.addEventListener('wheel', throttle(this.fireThrottledWheelEvent.bind(this), 500));
 
-    this.container?.addEventListener('touchstart', e => {
+    window.addEventListener('touchstart', e => {
       console.log("touchstart")
       this.touchStartY = e.changedTouches[0].screenY
     })
 
-    this.container?.addEventListener('touchend', e => {
+    window.addEventListener('touchend', e => {
       console.log("touchend")
       this.touchEndY = e.changedTouches[0].screenY
 
-      if (Math.abs(this.touchStartY - this.touchEndY) < 70) {
+      if (Math.abs(this.touchStartY - this.touchEndY) < 50) {
         this.touchEndY = 0;
         this.touchStartY = 0;
         return;
@@ -98,13 +98,12 @@ export default class Scrollable {
   }
 
   fireThrottledWheelEvent(event: WheelEvent) {
-    if(event) {
-      this.direction =  event.deltaY> 0 ? Direction.Down : Direction.Up
+    if (event) {
+      console.log("throttled event")
+      this.direction = event.deltaY > 0 ? Direction.Down : Direction.Up
       this.slideRequest();
     }
-    
   }
-
 
   addIndex() {
     if (this.pages) {
@@ -117,14 +116,19 @@ export default class Scrollable {
   slideRequest() {
     let switchPage = false;
     if (this.activePage) {
-      const activePageHeight = this.activePage.clientHeight;
+      const clientHeight = this.activePage.clientHeight;
       const scrollHeight = this.activePage.scrollHeight;
       const scrollTop = this.activePage.scrollTop
 
+      console.log("clientHeight", clientHeight);
+      console.log("scrollHeight", scrollHeight);
+      console.log("scrollTop", scrollTop);
+      console.log("Math.abs(scrollHeight - clientHeight - scrollTop)", Math.abs(scrollHeight - clientHeight - scrollTop));
+
       if (
-        scrollHeight === activePageHeight ||
-        (scrollHeight > activePageHeight &&
-          ((Math.abs(scrollHeight - activePageHeight - scrollTop) < 1 &&
+        scrollHeight === clientHeight ||
+        (scrollHeight > clientHeight &&
+          ((Math.abs(scrollHeight - clientHeight - scrollTop) < 100 &&
             this.direction === Direction.Down) ||
             (scrollTop <= 0 && this.direction === Direction.Up)))
       ) {
@@ -219,9 +223,12 @@ export default class Scrollable {
   }
 
   setActivePage(index: number) {
+    console.log("setActivePage")
     if (!this.isTransitionActive && this.pages && this.container && this.currentPageIndex !== index && (index < this.pages.length || index >= 0)) {
       if (this.currentPageIndex !== -1 || index > 0)
         this.isTransitionActive = true;
+
+      console.log("has active page")
 
       const yTranslation = this.getYTranslationValue(index);
       this.currentPageIndex = index;

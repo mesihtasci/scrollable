@@ -18,4 +18,3 @@ export function throttle(callback: Function, wait: number) {
     }
   }
 }
-
