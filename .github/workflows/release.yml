@@ -1,0 +1,34 @@
+name: Publish npm package
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          registry-url: https://registry.npmjs.org
+          cache: npm
+      - run: npm install --global npm@latest
+      - run: npm ci
+      - name: Verify tag matches package version
+        run: node --input-type=module -e "import fs from 'node:fs'; const version=JSON.parse(fs.readFileSync('package.json')).version; if(process.env.GITHUB_REF_NAME !== 'v'+version) process.exit(1);"
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - run: npm run build
+      - run: npm run check
+      - run: npm audit --audit-level=high
+      - name: Publish with provenance and prerelease tag
+        shell: bash
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if [[ "$VERSION" == *-* ]]; then
+            npm publish --provenance --access public --tag next
+          else
+            npm publish --provenance --access public
+          fi

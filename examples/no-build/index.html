@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Scrollable · No-build ESM</title>
+    <link rel="stylesheet" href="../../dist/style.css" />
+    <style>
+      body {
+        margin: 0;
+        font: 18px system-ui;
+      }
+      .mt-vs {
+        height: 100vh;
+        height: 100dvh;
+      }
+      .mt-vs__content {
+        padding: 100px 32px;
+        background: #e1eee7;
+      }
+      .mt-vs__content:nth-child(2) {
+        background: #fae5ca;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mt-vs">
+      <main class="mt-vs__container">
+        <section
+          class="mt-vs__content"
+          data-section-id="intro"
+          data-navigation-title="Introduction"
+        >
+          <h1>No build tool required</h1>
+          <p>
+            Run npm run build, serve the repository over HTTP, and open this
+            page.
+          </p>
+          <a href="../index.html">More examples</a>
+        </section>
+        <section
+          class="mt-vs__content"
+          data-section-id="finish"
+          data-navigation-title="Finish"
+        >
+          <h2>Just HTML, CSS, and modules.</h2>
+          <p>
+            Use version-pinned CDN distribution URLs when copying this to
+            another site.
+          </p>
+        </section>
+      </main>
+      <nav class="mt-vs__top-navigation" aria-label="Sections"><ul></ul></nav>
+    </div>
+    <script type="module">
+      import Scrollable from '../../dist/index.js';
+      new Scrollable('.mt-vs');
+    </script>
+  </body>
+</html>

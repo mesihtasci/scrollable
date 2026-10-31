@@ -1,0 +1,22 @@
+name: Bug report
+description: Report a reproducible scrolling, lifecycle, or packaging defect.
+body:
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Include a small runnable example and steps.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Expected and actual behavior
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Library version, browser version, OS, and input device
+    validations:
+      required: true

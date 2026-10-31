@@ -1,87 +1,56 @@
-<!DOCTYPE html>
-<html lang="de">
+<!doctype html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fullheight Scroller Template</title>
-    <link rel="stylesheet" href="../src/styles.css" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Scrollable examples</title>
+    <link rel="stylesheet" href="./gallery.css" />
   </head>
   <body>
-    <div class="mt-vs">
-      <main class="mt-vs__container">
-        <section data-section-id="firstPage" data-navigation-title="First Page" class="mt-vs__content color--one">
-          <div class="mt-vs__content-wrapper mt-vs__content-wrapper--min-height-100">
-            <h1>First Page</h1>
-          </div>
-        </section>
-        <section data-section-id="secondPage" data-navigation-title="Second Page" class="mt-vs__content color--two">
-          <div class="mt-vs__content-wrapper mt-vs__content-wrapper--min-height-100">
-            <!-- <h1>Second Page</h1> -->
-            <div style="height: 270vh; width: 100%"></div>
-          </div>
-        </section>
-        <section data-section-id="thirdPage" data-navigation-title="Third Page" class="mt-vs__content color--three">
-          <div class="mt-vs__content-wrapper mt-vs__content-wrapper--min-height-100">
-            <h1>Third Page</h1>
-          </div>
-        </section>
-        <section data-section-id="fourthPage" data-navigation-title="Fourth Page" class="mt-vs__content color--four">
-          <div class="mt-vs__content-wrapper mt-vs__content-wrapper--min-height-100">
-            <h1>Fourth Page</h1>
-          </div>
-        </section>
-        <section data-section-id="fifthPage" data-navigation-title="Fourth Page" class="mt-vs__content color--five">
-          <div class="mt-vs__content-wrapper mt-vs__content-wrapper--min-height-100">
-            <h1>Fifth Page</h1>
-          </div>
-        </section>
-        <section data-section-id="sixthPage" data-navigation-title="Sixt Page" class="mt-vs__content color--five">
-          <div class="mt-vs__content-wrapper mt-vs__content-wrapper--min-height-100">
-            <h1>Fifth Page</h1>
-          </div>
-        </section>
-        <section data-section-id="Seventh" data-navigation-title="Seventh Page" class="mt-vs__content mt-vs__container--auto-height color--seven">
-          <div class="mt-vs__content-wrapper">
-            <h1>Seventh Page</h1>
-            <h1>Seventh Page</h1>
-            <h1>Seventh Page</h1>
-            <h1>Seventh Page</h1>
-            <h1>Seventh Page</h1>
-            <h1>Seventh Page</h1>
-            <h1>Seventh Page</h1>
-            <h1>Seventh Page</h1>
-            <h1>Seventh Page</h1>
-            <h1>Seventh Page</h1>
-            <h1>Seventh Page</h1>
-            <h1>Seventh Page</h1>
-            <h1>Seventh Page</h1>
-            <h1>Seventh Page</h1>
-            <h1>Seventh Page</h1>
-            <h1>Seventh Page</h1>
-            <h1>Seventh Page</h1>
-            <h1>Seventh Page</h1>
-            <h1>Seventh Page</h1>
-            <h1>Seventh Page</h1>
-            <h1>Seventh Page</h1>
-            <h1>Seventh Page</h1>
-            <h1>Seventh Page</h1>
-            <h1>Seventh Page</h1>
-            <h1>Seventh Page</h1>
-            <h1>Seventh Page</h1>
-          </div>
-        </section>
-      </main>
-      <aside class="mt-vs__side-navigation">
-        <ul></ul>
-      </aside>
-      <nav class="mt-vs__top-navigation">
-        <ul></ul>
-      </nav>
-    </div>
-    <script type="module">
-      import Scrollable from '../dist/index.js';
-
-      window.Scrollable = new Scrollable();
-    </script>
+    <main class="gallery">
+      <p class="eyebrow">@mesihtasci/scrollable</p>
+      <h1>Make space for each section.</h1>
+      <p>
+        A small vertical scroller for full-screen stories and independent
+        embedded experiences. Explore the examples with a mouse, touch, or
+        keyboard.
+      </p>
+      <div class="cards">
+        <a href="./vanilla/index.html"
+          >01 · Minimal full-page<span
+            >Three sections, accessible controls, no framework.</span
+          ></a
+        ><a href="./vanilla/index.html?mode=long"
+          >02 · Long and nested content<span
+            >Read everything before moving to the next section.</span
+          ></a
+        ><a href="./vanilla/index.html?mode=mixed"
+          >03 · Mixed heights<span
+            >Full-height pages and shorter closing sections.</span
+          ></a
+        ><a href="./vanilla/index.html?mode=history"
+          >04 · Navigation and history<span
+            >Programmatic controls, events, and deep links.</span
+          ></a
+        ><a href="./vanilla/index.html?mode=embedded"
+          >05 · Independent instances<span
+            >Two embedded scrollers with refresh and teardown.</span
+          ></a
+        ><a href="./react/index.html"
+          >06 · React and TypeScript<span
+            >Strict Mode, effect cleanup, and remounting.</span
+          ></a
+        ><a href="./no-build/index.html"
+          >07 · No-build ESM<span
+            >Plain HTML using the distribution files directly.</span
+          ></a
+        >
+      </div>
+      <p>
+        <a href="https://github.com/mesihtasci/scrollable"
+          >Source and documentation →</a
+        >
+      </p>
+    </main>
   </body>
 </html>

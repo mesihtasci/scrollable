@@ -1,0 +1,13 @@
+{
+  "ignorePatterns": [
+    "dist/**",
+    "site/**",
+    "test-results/**",
+    "playwright-report/**"
+  ],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "plugins": ["typescript", "react"]
+}
